@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>?亙熒瑼Ｘ?勗? - 鈭???</title>
+    <title>健康檢查報告 - 互動分析</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
             --success: #8FBC8F;
             --warning: #F4A460;
             --danger: #CD5C5C;
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.95);
         }
 
         body {
@@ -31,6 +31,7 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         .container {
@@ -49,7 +50,6 @@
             font-size: 2.5em;
             color: var(--accent-dark);
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .subtitle {
@@ -64,7 +64,6 @@
             border-radius: 15px;
             display: inline-block;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            backdrop-filter: blur(10px);
         }
 
         .section {
@@ -111,7 +110,6 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             cursor: pointer;
-            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
         }
@@ -134,11 +132,6 @@
         .health-card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-
-        .health-card.active {
-            background: linear-gradient(135deg, var(--cream-medium), var(--cream-dark));
-            transform: scale(1.03);
         }
 
         .health-icon {
@@ -191,7 +184,6 @@
             margin-top: 20px;
             display: none;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
             animation: slideIn 0.4s ease;
         }
 
@@ -217,7 +209,6 @@
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
         }
 
         .todo-item {
@@ -262,7 +253,7 @@
         }
 
         .todo-checkbox::after {
-            content: '??;
+            content: '✓';
             color: white;
             font-size: 1.2em;
             display: none;
@@ -288,7 +279,6 @@
             padding: 30px;
             margin: 30px 0;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
         }
 
         .progress-bar {
@@ -378,53 +368,6 @@
             line-height: 1.5;
         }
 
-        .interactive-chart {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .chart-container {
-            position: relative;
-            height: 300px;
-            margin: 20px 0;
-        }
-
-        .chart-bar {
-            position: absolute;
-            bottom: 0;
-            width: 60px;
-            background: linear-gradient(180deg, var(--accent), var(--accent-dark));
-            border-radius: 8px 8px 0 0;
-            transition: height 1s ease;
-            cursor: pointer;
-        }
-
-        .chart-bar:hover {
-            filter: brightness(1.1);
-        }
-
-        .chart-label {
-            position: absolute;
-            bottom: -30px;
-            width: 100%;
-            text-align: center;
-            font-size: 0.9em;
-            color: var(--text-secondary);
-        }
-
-        .chart-value {
-            position: absolute;
-            top: -25px;
-            width: 100%;
-            text-align: center;
-            font-weight: bold;
-            color: var(--accent-dark);
-        }
-
         .cta-button {
             background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: white;
@@ -443,11 +386,8 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-secondary);
-            font-size: 0.9em;
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
         @keyframes fadeInDown {
@@ -477,8 +417,11 @@
             50% { transform: scale(1.05); }
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 0.9em;
         }
 
         @media (max-width: 768px) {
@@ -508,53 +451,54 @@
 <body>
     <div class="container">
         <header>
-            <h1>? ?亙熒瑼Ｘ?勗???</h1>
-            <p class="subtitle">?函??犖?亙熒?銵冽</p>
+            <h1>🏥 健康檢查報告分析</h1>
+            <p class="subtitle">您的個人健康儀表板</p>
             <div class="hospital-info">
-                ?? ?啣?撣??恍 | ?? 2026 撟?9 ??21 ??            </div>
+                📍 台南市立醫院 | 📅 2026 年 9 月 21 日
+            </div>
         </header>
 
         <section class="section" id="summary">
-            <h2 class="section-title">?亙熒????</h2>
+            <h2 class="section-title">健康重點摘要</h2>
             <div class="health-cards">
                 <div class="health-card" onclick="toggleDetail('pulse')">
-                    <span class="health-icon">??</span>
-                    <h3>??</h3>
+                    <span class="health-icon">💓</span>
+                    <h3>脈搏</h3>
                     <div class="health-value">56 bpm</div>
-                    <span class="health-status status-warning">?楨</span>
-                    <p style="margin-top: 10px; color: var(--text-secondary);">暺??亦?閰喟敦??</p>
+                    <span class="health-status status-warning">過緩</span>
+                    <p style="margin-top: 10px; color: var(--text-secondary);">點擊查看詳細分析</p>
                 </div>
 
                 <div class="health-card" onclick="toggleDetail('edema')">
-                    <span class="health-icon">?</span>
-                    <h3>??頞瘜?/h3>
-                    <div class="health-value">?瘞渲</div>
-                    <span class="health-status status-warning">頛漲?啣虜</span>
-                    <p style="margin-top: 10px; color: var(--text-secondary);">暺??亦?閰喟敦??</p>
+                    <span class="health-icon">💧</span>
+                    <h3>腎臟超音波</h3>
+                    <div class="health-value">雙側水腫</div>
+                    <span class="health-status status-warning">輕度異常</span>
+                    <p style="margin-top: 10px; color: var(--text-secondary);">點擊查看詳細分析</p>
                 </div>
 
                 <div class="health-card" onclick="toggleDetail('urine')">
-                    <span class="health-icon">?妒</span>
-                    <h3>撠踵雯瘥?</h3>
+                    <span class="health-icon">🧪</span>
+                    <h3>尿液比重</h3>
                     <div class="health-value">1.004</div>
-                    <span class="health-status status-warning">??</span>
-                    <p style="margin-top: 10px; color: var(--text-secondary);">暺??亦?閰喟敦??</p>
+                    <span class="health-status status-warning">偏低</span>
+                    <p style="margin-top: 10px; color: var(--text-secondary);">點擊查看詳細分析</p>
                 </div>
 
                 <div class="health-card" onclick="toggleDetail('bp')">
-                    <span class="health-icon">?征</span>
-                    <h3>銵憯?/h3>
+                    <span class="health-icon">🩺</span>
+                    <h3>血壓</h3>
                     <div class="health-value">99/55</div>
-                    <span class="health-status status-warning">??</span>
-                    <p style="margin-top: 10px; color: var(--text-secondary);">暺??亦?閰喟敦??</p>
+                    <span class="health-status status-warning">偏低</span>
+                    <p style="margin-top: 10px; color: var(--text-secondary);">點擊查看詳細分析</p>
                 </div>
 
                 <div class="health-card" onclick="toggleDetail('urate')">
-                    <span class="health-icon">?</span>
-                    <h3>撠輸</h3>
+                    <span class="health-icon">🔬</span>
+                    <h3>尿酸</h3>
                     <div class="health-value">6.0 mg/dL</div>
-                    <span class="health-status status-warning">?亥?擃?</span>
-                    <p style="margin-top: 10px; color: var(--text-secondary);">暺??亦?閰喟敦??</p>
+                    <span class="health-status status-warning">接近高限</span>
+                    <p style="margin-top: 10px; color: var(--text-secondary);">點擊查看詳細分析</p>
                 </div>
             </div>
         </section>
@@ -564,296 +508,246 @@
         </div>
 
         <section class="section" id="todo">
-            <h2 class="section-title">?? 瘥閬?????/h2>
+            <h2 class="section-title">📋 每日要做的事情</h2>
             <div class="todo-list">
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"></div>
-                    <div class="todo-text">?拇韏瑕?敺? 500ml 皞急偌嚗??偌??/div>
-                    <div class="todo-time">?? ?拐?</div>
+                    <div class="todo-text">早晨起床後喝 500ml 溫水，補充水分</div>
+                    <div class="todo-time">🌅 早上</div>
                 </div>
 
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"></div>
-                    <div class="todo-text">瘥????偌 200-300ml嚗??倏瘨脫?? 1.010-1.020</div>
-                    <div class="todo-time">? ?典予</div>
+                    <div class="todo-text">每餐間隙喝水 200-300ml，保持尿液比重在 1.010-1.020</div>
+                    <div class="todo-time">💧 全天</div>
                 </div>
 
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"></div>
-                    <div class="todo-text">皜?擃??日??抬??扯??絲擙柴?皝荔???</div>
-                    <div class="todo-time">?儭?憌脤?</div>
+                    <div class="todo-text">減少高嘌呤食物（內臟、海鮮、濃湯）攝取</div>
+                    <div class="todo-time">🍽️ 飲食</div>
                 </div>
 
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"></div>
-                    <div class="todo-text">憓?雿?憟嗉ˊ??憿????芾釭?鞈?/div>
-                    <div class="todo-time">?? 憌脤?</div>
+                    <div class="todo-text">增加低脂奶製品、蛋類、堅果等優質蛋白質</div>
+                    <div class="todo-time">🥛 飲食</div>
                 </div>
 
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"></div>
-                    <div class="todo-text">瘥予閬??? 30 ??嚗翰韏啜虜瘜喋?隡踝?</div>
-                    <div class="todo-time">?? ??</div>
+                    <div class="todo-text">每天規律運動 30 分鐘（快走、游泳、瑜伽）</div>
+                    <div class="todo-time">🏃 運動</div>
                 </div>
 
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"></div>
-                    <div class="todo-text">?? 11 暺??亦嚗???7-8 撠??∠?</div>
-                    <div class="todo-time">? ?∠?</div>
+                    <div class="todo-text">晚上 11 點前入睡，保持 7-8 小時睡眠</div>
+                    <div class="todo-time">😴 睡眠</div>
                 </div>
 
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"></div>
-                    <div class="todo-text">閮?銵憯???嚗??銝甈∴?</div>
-                    <div class="todo-time">?? ??葫</div>
+                    <div class="todo-text">記錄血壓和脈搏（早晚各一次）</div>
+                    <div class="todo-time">📊 監測</div>
                 </div>
 
                 <div class="todo-item" onclick="toggleTodo(this)">
                     <div class="todo-checkbox"></div>
-                    <div class="todo-text">?踹?銋?嚗?撠?韏瑁澈瘣餃? 5 ??</div>
-                    <div class="todo-time">?? 瘣餃?</div>
+                    <div class="todo-text">避免久坐，每小時起身活動 5 分鐘</div>
+                    <div class="todo-time">🪑 活動</div>
                 </div>
             </div>
         </section>
 
         <section class="section" id="progress">
-            <h2 class="section-title">?? ?孵??脣漲餈質馱</h2>
+            <h2 class="section-title">📈 改善進度追蹤</h2>
             <div class="progress-container">
-                <h3 style="color: var(--accent-dark); margin-bottom: 15px;">?湧??亙熒?孵??脣漲</h3>
+                <h3 style="color: var(--accent-dark); margin-bottom: 15px;">整體健康改善進度</h3>
                 <div class="progress-bar">
                     <div class="progress-fill" id="health-progress" style="width: 0%"></div>
                 </div>
                 <p style="text-align: center; color: var(--text-secondary);">
-                    摰?瘥隞餃??舐敞蝛脣漲嚗?蝥????3 ???抒??圈＊???
+                    完成每日任務可累積進度，持續努力將在 3 個月內看到顯著改善！
                 </p>
             </div>
         </section>
 
         <section class="section" id="future">
-            <h2 class="section-title">? ???芸?敺?????</h2>
+            <h2 class="section-title">🔮 堅持努力後的預期效果</h2>
             <div class="future-preview">
                 <div class="timeline">
                     <div class="timeline-item" onclick="showPhase(1)">
-                        <div class="phase">蝚?1 ??</div>
-                        <div class="outcome">瘞游??雲嚗倏瘨脫??敺拇迤撣賂?蝎曄??瘜??/div>
+                        <div class="phase">第 1 個月</div>
+                        <div class="outcome">水分充足，尿液比重恢復正常，精神狀況改善</div>
                     </div>
                     <div class="timeline-item" onclick="showPhase(2)">
-                        <div class="phase">蝚?2-3 ??</div>
-                        <div class="outcome">銵憯撓蝛拙?嚗???撘瘀??∠??釭??</div>
+                        <div class="phase">第 2-3 個月</div>
+                        <div class="outcome">血壓逐漸穩定，脈搏增強，睡眠品質提升</div>
                     </div>
                     <div class="timeline-item" onclick="showPhase(3)">
-                        <div class="phase">蝚?4-6 ??</div>
-                        <div class="outcome">撠輸??蝭?嚗??偌?急?頛?瘨仃</div>
+                        <div class="phase">第 4-6 個月</div>
+                        <div class="outcome">尿酸降至理想範圍，腎臟水腫減輕或消失</div>
                     </div>
                     <div class="timeline-item" onclick="showPhase(4)">
-                        <div class="phase">1 撟游?</div>
-                        <div class="outcome">?湧??亙熒????嚗?折◢?芸之撟?雿?/div>
+                        <div class="phase">1 年後</div>
+                        <div class="outcome">整體健康指標達標，慢性風險大幅降低</div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="section" id="chart">
-            <h2 class="section-title">?? ?亙熒??霈?頞典</h2>
-            <div class="interactive-chart">
-                <h3 style="color: var(--accent-dark);">?嗅??? vs ?格???/h3>
-                <div class="chart-container" id="chart">
-                    <!-- Chart bars will be generated by JavaScript -->
-                </div>
-                <p style="text-align: center; color: var(--text-secondary);; margin-top: 40px;">
-                    暺??”?亦???璅?閰喟敦?格?蝭?
-                </p>
             </div>
         </section>
 
         <div style="text-align: center;">
-            <button class="cta-button pulse" onclick="resetProgress()">?? ???餈質馱</button>
+            <button class="cta-button pulse" onclick="resetProgress()">🔄 重新開始追蹤</button>
         </div>
 
         <footer>
-            <p>? ?砍??靘????琿??怎?撱箄降隢垣閰Ｗ?璆剝撣?/p>
-            <p>穢 2026 ?亙熒?勗?鈭?蝬脤? | ?啣?撣??恍</p>
+            <p>💡 本報告僅供參考，具體醫療建議請諮詢專業醫師</p>
+            <p>© 2026 健康報告互動網頁 | 台南市立醫院</p>
         </footer>
     </div>
 
     <script>
-        // ?亙熒?豢?閰喟敦??
+        // 健康數據詳細分析
         const healthDetails = {
             pulse: {
-                icon: '??',
-                title: '???楨 (56 bpm)',
+                icon: '💓',
+                title: '脈搏過緩 (56 bpm)',
                 analysis: `
-                    <h3>?? 閰喟敦??</h3>
-                    <p>?函?????56 甈???嚗??潭迤撣貊???60-100 bpm嚗?撅祆???楨??/p>
+                    <h3>📋 詳細分析</h3>
+                    <p>您的脈搏為 56 次/分鐘，低於正常範圍（60-100 bpm），屬於脈搏過緩。</p>
                     
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?航??嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">可能原因：</h4>
                     <ul>
-                        <li>?∠?銝雲???鞈芯?雿?/li>
-                        <li>?瑟?蝻箔?閬???</li>
-                        <li>??銝?銵∴??孵?舐雁?? B12?鞈芯?頞?/li>
-                        <li>?脩??箏??賜撣?/li>
-                        <li>敹??喳?蝟餌絞??</li>
+                        <li>睡眠不足或睡眠品質不佳</li>
+                        <li>長期缺乏規律運動</li>
+                        <li>營養不均衡，特別是維生素 B12、鐵質不足</li>
+                        <li>甲狀腺功能異常</li>
+                        <li>心臟傳導系統問題</li>
                     </ul>
 
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">瞏憸券嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">改善建議：</h4>
                     <ul>
-                        <li>銵瘨脣儐?唬?頞喉?撠?脣艾??/li>
-                        <li>????????/li>
-                        <li>?湧???賢蔣?輸?閬摰?銵</li>
-                    </ul>
-
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?孵?撱箄降嚗?/h4>
-                    <ul>
-                        <li>??瘥予閬??? 30 ??嚗?撘瑕?????/li>
-                        <li>??蝣箔??雲?∠?嚗?-8 撠?嚗?撱箇?閬?雿</li>
-                        <li>????撖?菔釭?雁?? B12 ???抬?瘛梁??脰????憿?</li>
-                        <li>???踹??漲??????移</li>
-                        <li>??摰???葫??嚗?????/li>
+                        <li>✅ 每天規律運動 30 分鐘，增強心臟功能</li>
+                        <li>✅ 確保充足睡眠（7-8 小時），建立規律作息</li>
+                        <li>✅ 攝取富含鐵質、維生素 B12 的食物（深綠色蔬菜、紅肉、蛋類）</li>
+                        <li>✅ 避免過度攝取咖啡因和酒精</li>
+                        <li>✅ 定期監測脈搏，記錄變化</li>
                     </ul>
                 `
             },
             edema: {
-                icon: '?',
-                title: '?頛漲?偌??,
+                icon: '💧',
+                title: '雙側輕度腎水腫',
                 analysis: `
-                    <h3>?? 閰喟敦??</h3>
-                    <p>頞瘜Ｘ炎?仿＊蝷箏?渲???頛漲瘞渲?曇情嚗”蝷箄???瑽?頛凝?寡???/p>
+                    <h3>📋 詳細分析</h3>
+                    <p>超音波檢查顯示兩側腎臟有輕度水腫現象，表示腎臟結構有輕微改變。</p>
                     
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?航??嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">可能原因：</h4>
                     <ul>
-                        <li>瘞游???銝雲??摨行?憭?/li>
-                        <li>撠輸??????鞎?</li>
-                        <li>撠輯楝?餃???</li>
-                        <li>擃?憯?蝟倏????????/li>
-                        <li>?亦?臭???/li>
+                        <li>水分攝取不足或過度流失</li>
+                        <li>尿酸過高造成腎臟負擔</li>
+                        <li>尿路阻塞或逆流</li>
+                        <li>高血壓或糖尿病造成的腎臟損傷</li>
+                        <li>藥物副作用</li>
                     </ul>
 
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">瞏憸券嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">改善建議：</h4>
                     <ul>
-                        <li>????撓銝?</li>
-                        <li>?航?澆??箸?扯???</li>
-                        <li>憓?敹?蝞∠?◢??/li>
-                    </ul>
-
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?孵?撱箄降嚗?/h4>
-                    <ul>
-                        <li>??瘥予???雲瘞游?嚗?000-2500ml嚗?/li>
-                        <li>???批撠輸嚗???憌</li>
-                        <li>??皜?暽賢???嚗???6 ??</li>
-                        <li>??摰?餈質馱???賣???/li>
-                        <li>???踹?瞈怎甇Ｙ??亙?靽??/li>
-                        <li>??3 ??敺??亥??單郭</li>
+                        <li>✅ 每天攝取充足水分（2000-2500ml）</li>
+                        <li>✅ 控制尿酸，避免高嘌呤食物</li>
+                        <li>✅ 減少鹽分攝取（每日<6 克）</li>
+                        <li>✅ 定期追蹤腎功能指數</li>
+                        <li>✅ 避免濫用止痛藥和保健品</li>
+                        <li>✅ 3 個月後複查超音波</li>
                     </ul>
                 `
             },
             urine: {
-                icon: '?妒',
-                title: '撠踵雯瘥??? (1.004)',
+                icon: '🧪',
+                title: '尿液比重偏低 (1.004)',
                 analysis: `
-                    <h3>?? 閰喟敦??</h3>
-                    <p>撠踵雯瘥? 1.004 雿甇?虜蝭?嚗?.010-1.025嚗?銵函內撠踵雯?蝔??/p>
+                    <h3>📋 詳細分析</h3>
+                    <p>尿液比重 1.004 低於正常範圍（1.010-1.025），表示尿液過於稀釋。</p>
                     
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?航??嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">可能原因：</h4>
                     <ul>
-                        <li>?剜??批之?ㄡ瘞?/li>
-                        <li>??瞈葬?銝?</li>
-                        <li>蝟倏??撠踹援??/li>
-                        <li>??拙倏??/li>
-                        <li>?餉圾鞈芯?撟唾﹛</li>
+                        <li>短期內大量飲水</li>
+                        <li>腎臟濃縮功能下降</li>
+                        <li>糖尿病或尿崩症</li>
+                        <li>服用利尿劑</li>
+                        <li>電解質不平衡</li>
                     </ul>
 
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">瞏憸券嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">改善建議：</h4>
                     <ul>
-                        <li>?餉圾鞈芣?憭?/li>
-                        <li>?急偌憸券嚗?隡潛??橘?雿?賣???⊥?靽?瘞游?嚗?/li>
-                        <li>??蝝??箏???/li>
-                    </ul>
-
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?孵?撱箄降嚗?/h4>
-                    <ul>
-                        <li>???活撠??偌嚗??甈⊥批之????/li>
-                        <li>??憓??芾釭?鞈芣???撟怠???</li>
-                        <li>??鋆??餉圾鞈迎??拚?暽賢?????嚗?/li>
-                        <li>???踹??????拙倏憌嚗??～?正??</li>
-                        <li>??閫撖倏瘨脤??莎?靽?瘛⊿??脩雿?/li>
+                        <li>✅ 分次少量喝水，避免一次性大量攝取</li>
+                        <li>✅ 增加優質蛋白質攝取，幫助腎臟功能</li>
+                        <li>✅ 補充電解質（適量鹽分、鉀、鎂）</li>
+                        <li>✅ 避免過量攝取利尿食物（咖啡、茶、西瓜）</li>
+                        <li>✅ 觀察尿液顏色，保持淡黃色為佳</li>
                     </ul>
                 `
             },
             bp: {
-                icon: '?征',
-                title: '銵憯?雿?(99/55)',
+                icon: '🩺',
+                title: '血壓偏低 (99/55)',
                 analysis: `
-                    <h3>?? 閰喟敦??</h3>
-                    <p>銵憯?99/55 mmHg 雿甇?虜蝭?嚗?20/80 mmHg嚗?撅祆雿?憯?/p>
+                    <h3>📋 詳細分析</h3>
+                    <p>血壓 99/55 mmHg 低於正常範圍（120/80 mmHg），屬於低血壓。</p>
                     
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?航??嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">可能原因：</h4>
                     <ul>
-                        <li>瘞游???銝雲</li>
-                        <li>??銝?銵?/li>
-                        <li>蝻箔?閬???</li>
-                        <li>擃釭??</li>
-                        <li>?脩??箸????箏??賜撣?/li>
+                        <li>水分攝取不足</li>
+                        <li>營養不均衡</li>
+                        <li>缺乏規律運動</li>
+                        <li>體質因素</li>
+                        <li>甲狀腺或腎上腺功能異常</li>
                     </ul>
 
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">瞏憸券嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">改善建議：</h4>
                     <ul>
-                        <li>摰寞??剜????/li>
-                        <li>蝒蝡絲??賜??憪踹?找?銵憯?</li>
-                        <li>銵瘨脣儐?唬?頞?/li>
-                        <li>瘜冽????葉</li>
-                    </ul>
-
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?孵?撱箄降嚗?/h4>
-                    <ul>
-                        <li>??瘥予???雲瘞游?嚗?000-2500ml嚗?/li>
-                        <li>???拙漲憓?暽賢???嚗?撣怠??蝷綽?</li>
-                        <li>??閬???嚗?撘瑁?蝞∪撐??/li>
-                        <li>???踹?蝒蝡絲嚗?雿??/li>
-                        <li>??蝛踹??扯左撟怠銵瘨脣?瘚?/li>
-                        <li>???踹??瑟???蝡?/li>
+                        <li>✅ 每天攝取充足水分（2000-2500ml）</li>
+                        <li>✅ 適度增加鹽分攝取（除非醫師另有指示）</li>
+                        <li>✅ 規律運動，增強血管張力</li>
+                        <li>✅ 避免突然站起，動作放慢</li>
+                        <li>✅ 穿彈性襪幫助血液回流</li>
+                        <li>✅ 避免長時間站立</li>
                     </ul>
                 `
             },
             urate: {
-                icon: '?',
-                title: '撠輸?亥?擃? (6.0 mg/dL)',
+                icon: '🔬',
+                title: '尿酸接近高限 (6.0 mg/dL)',
                 analysis: `
-                    <h3>?? 閰喟敦??</h3>
-                    <p>撠輸??6.0 mg/dL ?亥?甇?虜銝?嚗戊??6.0嚗??7.0嚗??撅擃倏?貉???憸券??/p>
+                    <h3>📋 詳細分析</h3>
+                    <p>尿酸值 6.0 mg/dL 接近正常上限（男性<7.0），有發展為高尿酸血症的風險。</p>
                     
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?航??嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">可能原因：</h4>
                     <ul>
-                        <li>擃??日ㄡ憌??扯??絲擙柴???</li>
-                        <li>??????憌脫?</li>
-                        <li>憌脤???</li>
-                        <li>擃???</li>
-                        <li>?????銝?</li>
-                        <li>摰嗆??箏</li>
+                        <li>高嘌呤飲食（內臟、海鮮、紅肉）</li>
+                        <li>攝取過多果糖飲料</li>
+                        <li>飲酒過量</li>
+                        <li>體重過重</li>
+                        <li>腎臟排泄功能下降</li>
+                        <li>家族遺傳</li>
                     </ul>
 
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">瞏憸券嚗?/h4>
+                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">改善建議：</h4>
                     <ul>
-                        <li>?◢?潔?</li>
-                        <li>???喲◢?芸???/li>
-                        <li>?????</li>
-                        <li>敹?蝞∠?◢?芯???/li>
-                    </ul>
-
-                    <h4 style="margin: 20px 0 10px 0; color: var(--accent-dark);">?孵?撱箄降嚗?/h4>
-                    <ul>
-                        <li>??皜?擃??日??拇???/li>
-                        <li>??憭??祈?瘞湔?嚗?交瑹餅?????</li>
-                        <li>??瘥予?雲憭?瘞湛?2000-2500ml嚗?/li>
-                        <li>???踹??怎?憌脫???蝎?/li>
-                        <li>???批擃?嚗?翰????/li>
-                        <li>??閬???嚗??踹??漲??</li>
-                        <li>??3 ??敺??亙倏??/li>
+                        <li>✅ 減少高嘌呤食物攝取</li>
+                        <li>✅ 多吃蔬菜水果（特別是櫻桃、草莓）</li>
+                        <li>✅ 每天喝足夠的水（2000-2500ml）</li>
+                        <li>✅ 避免含糖飲料和酒精</li>
+                        <li>✅ 控制體重，避免快速減重</li>
+                        <li>✅ 規律運動，但避免過度劇烈</li>
+                        <li>✅ 3 個月後複查尿酸</li>
                     </ul>
                 `
             }
         };
 
-        // ??閰喟敦鞈??Ｘ
+        // 切換詳細資訊面板
         function toggleDetail(type) {
             const panel = document.getElementById('detail-panel');
             const content = document.getElementById('detail-content');
@@ -868,22 +762,21 @@
                 `;
                 panel.classList.add('show');
                 
-                // 撟單?皛曉??圈??                setTimeout(() => {
+                setTimeout(() => {
                     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 100);
             }
         }
 
-        // ??敺齒鈭?摰????        function toggleTodo(item) {
+        // 切換待辦事項完成狀態
+        function toggleTodo(item) {
             item.classList.toggle('completed');
-            
-            // ?湔?脣漲璇?            updateProgress();
-            
-            // ?脣??? localStorage
+            updateProgress();
             saveTodoState();
         }
 
-        // ?湔?脣漲璇?        function updateProgress() {
+        // 更新進度條
+        function updateProgress() {
             const total = document.querySelectorAll('.todo-item').length;
             const completed = document.querySelectorAll('.todo-item.completed').length;
             const percentage = (completed / total) * 100;
@@ -892,13 +785,15 @@
             document.getElementById('health-progress').textContent = Math.round(percentage) + '%';
         }
 
-        // ?脣?敺齒鈭????        function saveTodoState() {
+        // 儲存待辦事項狀態
+        function saveTodoState() {
             const todos = document.querySelectorAll('.todo-item');
             const state = Array.from(todos).map(todo => todo.classList.contains('completed'));
             localStorage.setItem('healthTodoState', JSON.stringify(state));
         }
 
-        // 頛敺齒鈭????        function loadTodoState() {
+        // 載入待辦事項狀態
+        function loadTodoState() {
             const saved = localStorage.getItem('healthTodoState');
             if (saved) {
                 const state = JSON.parse(saved);
@@ -912,9 +807,9 @@
             }
         }
 
-        // ?蔭?脣漲
+        // 重置進度
         function resetProgress() {
-            if (confirm('蝣箏?閬?蝵格??脣漲??')) {
+            if (confirm('確定要重置所有進度嗎？')) {
                 document.querySelectorAll('.todo-item').forEach(item => {
                     item.classList.remove('completed');
                 });
@@ -923,73 +818,15 @@
             }
         }
 
-        // 憿舐內?挾鞈?
+        // 顯示階段資訊
         function showPhase(phase) {
             const items = document.querySelectorAll('.timeline-item');
             items.forEach(item => item.classList.remove('active'));
             items[phase - 1].classList.add('active');
         }
 
-        // 撱箇??”
-        function createChart() {
-            const chart = document.getElementById('chart');
-            const data = [
-                { label: '??', current: 56, target: 70, unit: 'bpm', max: 100 },
-                { label: '銵憯?, current: 99, target: 120, unit: 'mmHg', max: 140 },
-                { label: '撠輸', current: 6.0, target: 5.0, unit: 'mg/dL', max: 10 },
-                { label: '撠踵雯瘥?', current: 1.004, target: 1.015, unit: '', max: 1.030 }
-            ];
-
-            const barWidth = 60;
-            const gap = 40;
-            const totalWidth = data.length * (barWidth + gap) - gap;
-
-            data.forEach((item, index) => {
-                const left = 50 + index * (barWidth + gap);
-                
-                // ?嗅??潭?
-                const currentBar = document.createElement('div');
-                currentBar.className = 'chart-bar';
-                const currentHeight = (item.current / item.max) * 250;
-                currentBar.style.left = (left - 10) + 'px';
-                currentBar.style.width = barWidth + 'px';
-                currentBar.style.height = currentHeight + 'px';
-                currentBar.style.background = 'linear-gradient(180deg, #E89B75, #C77A58)';
-                
-                const currentValue = document.createElement('div');
-                currentValue.className = 'chart-value';
-                currentValue.textContent = item.current + item.unit;
-                currentBar.appendChild(currentValue);
-                
-                const currentLabel = document.createElement('div');
-                currentLabel.className = 'chart-label';
-                currentLabel.textContent = item.label;
-                currentBar.appendChild(currentLabel);
-                
-                chart.appendChild(currentBar);
-                
-                // ?格??潭?嚗?蝺?
-                const targetBar = document.createElement('div');
-                targetBar.className = 'chart-bar';
-                const targetHeight = (item.target / item.max) * 250;
-                targetBar.style.left = (left + 10) + 'px';
-                targetBar.style.width = barWidth + 'px';
-                targetBar.style.height = targetHeight + 'px';
-                targetBar.style.background = 'linear-gradient(180deg, #8FBC8F, #A8D5A8)';
-                targetBar.style.opacity = '0.6';
-                
-                const targetValue = document.createElement('div');
-                targetValue.className = 'chart-value';
-                targetValue.textContent = '?格?';
-                targetValue.style.color = '#8FBC8F';
-                targetBar.appendChild(targetValue);
-                
-                chart.appendChild(targetBar);
-            });
-        }
-
-        // ?頛?銵?        document.addEventListener('DOMContentLoaded', function() {
-            // 憿舐內 sections
+        // 頁面載入時執行
+        document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('.section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1003,12 +840,9 @@
                 observer.observe(section);
             });
 
-            // 頛敺齒鈭????            loadTodoState();
+            loadTodoState();
 
-            // 撱箇??”
-            createChart();
-
-            // ?憿舐內?脣漲璇?            setTimeout(() => {
+            setTimeout(() => {
                 updateProgress();
             }, 500);
         });
